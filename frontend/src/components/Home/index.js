@@ -1,7 +1,10 @@
 import { connect } from "react-redux";
 
 import Home from "./Home";
-import { getEventsAction } from "redux/actions/events";
+import {
+    getEventsAction,
+    getHighlightedEventsAction,
+} from "redux/actions/events";
 
 const mapStateToProps = (state) => {
     return {
@@ -11,6 +14,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getEvents: () => dispatch(getEventsAction()),
+        getHighlightedEvents: () => dispatch(getHighlightedEventsAction()),
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

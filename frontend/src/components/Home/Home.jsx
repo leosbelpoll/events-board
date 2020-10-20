@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import { getNextDate } from "utils/date";
+import { getNextFormattedDate } from "utils/date";
 import "./Home.scss";
 
 const Home = ({ eventsState, getEvents }) => {
@@ -22,7 +23,7 @@ const Home = ({ eventsState, getEvents }) => {
         <div className="row">
             {events
                 ? events.map((event) => {
-                      const nextDate = getNextDate(
+                      const nextDate = getNextFormattedDate(
                           event.dates,
                           "MMM do, yyyy @ HH:MM"
                       );
@@ -47,12 +48,12 @@ const Home = ({ eventsState, getEvents }) => {
                                           <h5 className="card-title">
                                               {event.title}
                                           </h5>
-                                          <a
-                                              href="#"
+                                          <Link
+                                              to={`/events/${event.id}`}
                                               className="btn btn-primary"
                                           >
                                               View
-                                          </a>
+                                          </Link>
                                       </div>
                                   </div>
                               </div>

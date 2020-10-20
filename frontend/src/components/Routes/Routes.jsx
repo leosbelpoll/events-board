@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Home from "components/Home";
+import EventDetail from "components/EventDetail";
 import Header from "components/Header";
 import PageNotFound from "components/PageNotFound";
 
@@ -10,9 +11,14 @@ const Routes = () => {
         <div className="app-component">
             <Router>
                 <Header />
-                <div className="container">
+                <div className="container-fluid">
                     <Switch>
                         <Route path="/" component={Home} exact />
+                        <Route
+                            path="/events/:id"
+                            children={<EventDetail />}
+                            exact
+                        />
                         <Route component={PageNotFound} />
                     </Switch>
                 </div>

@@ -22,7 +22,7 @@ export default function (state = initialState, { type, payload }) {
         case GET_EVENTS_SUCCESS: {
             return {
                 ...state,
-                events: payload,
+                events: payload.events,
                 loading: false,
                 error: null,
             };

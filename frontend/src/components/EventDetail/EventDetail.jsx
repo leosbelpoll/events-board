@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { getFormattedDate, getNextDates } from "utils/date";
+import { getFormattedDate, getDates } from "utils/date";
 import PageNotFound from "components/PageNotFound";
 import "./EventDetail.scss";
 
@@ -24,7 +24,7 @@ const EventDetail = ({ eventsState, getEvent }) => {
     }
 
     const getTable = () => {
-        const eventDates = getNextDates(dates);
+        const eventDates = getDates(dates);
 
         return (
             <table class="table dates-table">

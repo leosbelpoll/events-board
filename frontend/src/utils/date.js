@@ -11,11 +11,8 @@ export const getNextFormattedDate = (
     return nextDates && nextDates.length && format(nextDates[0], formatString);
 };
 
-export const getNextDates = (dates) => {
-    return dates
-        .map((date) => new Date(date))
-        .filter((date) => isFuture(date))
-        .sort(compareAsc);
+export const getDates = (dates) => {
+    return dates.map((date) => new Date(date)).sort(compareAsc);
 };
 
 export const getFormattedDate = (

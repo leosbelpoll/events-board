@@ -1,0 +1,9 @@
+{
+    "events": {
+        "events": [],
+        "highlightedEvents": [],
+        "currentEvent": null,
+        "loading": true,
+        "error": null
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "events": {
+        "events": [],
+        "highlightedEvents": [],
+        "currentEvent": null,
+        "loading": false,
+        "error": {
+            "message": "some error"
+        }
+    }
+}

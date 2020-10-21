@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-import { getNextFormattedDate } from "utils/date";
+import { getNextOrFirstFormattedDate } from "utils/date";
 import "./Home.scss";
 
 const Home = ({ eventsState, getEvents, getHighlightedEvents }) => {
+    const FULL_DATE_FORMAT = "MMM do, yyyy @ HH:mm";
     const { events, highlightedEvents, loading, error } = eventsState;
 
     useEffect(() => {
@@ -24,47 +25,58 @@ const Home = ({ eventsState, getEvents, getHighlightedEvents }) => {
         <div className="row">
             <div className="col-md-8">
                 <div className="row">
+                    <div className="col mb-4">
+                        <NavLink
+                            to="/events/create"
+                            className="btn btn-primary add-event-button"
+                        >
+                            + Add event
+                        </NavLink>
+                    </div>
+                </div>
+                <div className="row">
                     {events
                         ? events.map((event) => {
-                              const nextDate = getNextFormattedDate(
-                                  event.dates,
-                                  "MMM do, yyyy @ HH:MM"
+                              const dates = event.tickets.map(
+                                  ({ date }) => new Date(date)
+                              );
+                              const nextDate = getNextOrFirstFormattedDate(
+                                  dates,
+                                  FULL_DATE_FORMAT
                               );
 
-                              if (nextDate) {
-                                  return (
-                                      <div
-                                          className="col-lg-4 event-card"
-                                          key={event.id}
-                                      >
-                                          <div className="card">
-                                              <img
-                                                  src={event.eventImage}
-                                                  className="card-img-top"
-                                                  alt={event.title}
-                                                  style={{
-                                                      height: "14rem",
-                                                      objectFit: "cover",
-                                                  }}
-                                              />
-                                              <div className="card-body">
-                                                  <h6 className="card-date">
-                                                      {nextDate}
-                                                  </h6>
-                                                  <h5 className="card-title">
-                                                      {event.title}
-                                                  </h5>
-                                                  <Link
-                                                      to={`/events/${event.id}`}
-                                                      className="btn btn-primary"
-                                                  >
-                                                      View
-                                                  </Link>
-                                              </div>
+                              return (
+                                  <div
+                                      className="col-lg-4 event-card"
+                                      key={event.id}
+                                  >
+                                      <div className="card">
+                                          <img
+                                              src={event.eventImage}
+                                              className="card-img-top"
+                                              alt={event.title}
+                                              style={{
+                                                  height: "14rem",
+                                                  objectFit: "cover",
+                                              }}
+                                          />
+                                          <div className="card-body">
+                                              <h6 className="card-date">
+                                                  {nextDate}
+                                              </h6>
+                                              <h5 className="card-title">
+                                                  {event.title}
+                                              </h5>
+                                              <Link
+                                                  to={`/events/${event.id}`}
+                                                  className="btn btn-success"
+                                              >
+                                                  View
+                                              </Link>
                                           </div>
                                       </div>
-                                  );
-                              }
+                                  </div>
+                              );
                           })
                         : "No events to show"}
                 </div>
@@ -73,30 +85,33 @@ const Home = ({ eventsState, getEvents, getHighlightedEvents }) => {
                 <h2>Today's Highlight</h2>
                 <hr />
                 {highlightedEvents ? (
-                    <div class="list-group">
+                    <div className="list-group">
                         {highlightedEvents.map(
-                            ({ id, title, dates, description, location }) => {
+                            ({ id, title, tickets, description, location }) => {
                                 const MAX_LENGTH = 30;
+                                const dates = tickets.map(
+                                    ({ date }) => new Date(date)
+                                );
 
                                 return (
                                     <Link
                                         to={`/events/${id}`}
-                                        class="list-group-item list-group-item-action"
+                                        className="list-group-item list-group-item-action"
                                     >
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">
+                                        <div className="d-flex w-100 justify-content-between">
+                                            <h5 className="mb-1">
                                                 {title.substring(0, MAX_LENGTH)}
                                                 {title.length > MAX_LENGTH &&
                                                     "..."}{" "}
                                                 <small className="highlighted-event-date">
-                                                    {getNextFormattedDate(
+                                                    {getNextOrFirstFormattedDate(
                                                         dates,
                                                         "MMM do @ yyyy"
                                                     )}
                                                 </small>
                                             </h5>
                                         </div>
-                                        <p class="mb-1">
+                                        <p className="mb-1">
                                             {description.substring(
                                                 0,
                                                 MAX_LENGTH

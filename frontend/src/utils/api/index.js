@@ -11,3 +11,6 @@ export const getHighlightedEvents = () =>
     axios.get(`${BASE_PATH}${EVENTS_URL}/featured`);
 
 export const getEvent = (id) => axios.get(`${BASE_PATH}${EVENTS_URL}/${id}`);
+
+export const createEvent = (eventOptions) =>
+    axios.post(`${BASE_PATH}${EVENTS_URL}`, eventOptions);

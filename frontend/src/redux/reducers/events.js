@@ -8,6 +8,9 @@ import {
     GET_EVENT_FETCH,
     GET_EVENT_SUCCESS,
     GET_EVENT_ERROR,
+    CREATE_EVENT_FETCH,
+    CREATE_EVENT_SUCCESS,
+    CREATE_EVENT_ERROR,
 } from "redux/actions/actionTypes";
 
 const initialState = {
@@ -80,6 +83,28 @@ export default function (state = initialState, { type, payload }) {
             };
         }
         case GET_EVENT_ERROR: {
+            return {
+                ...state,
+                loading: false,
+                error: payload,
+            };
+        }
+        case CREATE_EVENT_FETCH: {
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            };
+        }
+        case CREATE_EVENT_SUCCESS: {
+            return {
+                ...state,
+                events: [payload.event, ...state.events],
+                loading: false,
+                error: null,
+            };
+        }
+        case CREATE_EVENT_ERROR: {
             return {
                 ...state,
                 loading: false,

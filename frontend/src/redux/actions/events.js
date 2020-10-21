@@ -5,11 +5,19 @@ import {
     GET_EVENT_FETCH,
     GET_EVENT_SUCCESS,
     GET_EVENT_ERROR,
+    CREATE_EVENT_FETCH,
+    CREATE_EVENT_SUCCESS,
+    CREATE_EVENT_ERROR,
     GET_HIGHLIGHTED_EVENTS_FETCH,
     GET_HIGHLIGHTED_EVENTS_SUCCESS,
     GET_HIGHLIGHTED_EVENTS_ERROR,
 } from "redux/actions/actionTypes";
-import { getEvent, getEvents, getHighlightedEvents } from "utils/api";
+import {
+    getEvent,
+    getEvents,
+    getHighlightedEvents,
+    createEvent,
+} from "utils/api";
 
 // Get events
 
@@ -94,6 +102,35 @@ export const getEventAction = (id) => {
             })
             .catch((error) => {
                 dispatch(getEventError(error));
+            });
+    };
+};
+
+// Create single event
+
+export const createEventFetch = () => ({
+    type: CREATE_EVENT_FETCH,
+});
+
+export const createEventSuccess = (event) => ({
+    type: CREATE_EVENT_SUCCESS,
+    payload: event,
+});
+
+export const createEventError = (error) => ({
+    type: CREATE_EVENT_ERROR,
+    payload: error,
+});
+
+export const createEventAction = (eventOptions) => {
+    return (dispatch) => {
+        dispatch(createEventFetch());
+        createEvent(eventOptions)
+            .then((response) => {
+                dispatch(createEventSuccess(response.data));
+            })
+            .catch((error) => {
+                dispatch(createEventError(error));
             });
     };
 };

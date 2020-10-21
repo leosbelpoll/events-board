@@ -83,9 +83,9 @@ export const getEventFetch = () => ({
     type: GET_EVENT_FETCH,
 });
 
-export const getEventSuccess = (events) => ({
+export const getEventSuccess = (event) => ({
     type: GET_EVENT_SUCCESS,
-    payload: events,
+    payload: event,
 });
 
 export const getEventError = (error) => ({

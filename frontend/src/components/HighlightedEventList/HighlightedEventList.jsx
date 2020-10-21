@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// import HighlightedEventListItem from "components/HighlightedEventListItem";
 import { getNextOrFirstFormattedDate } from "utils/date";
 import "./HighlightedEventList.scss";
 
@@ -13,6 +12,8 @@ const HighlightedEventList = ({ highlightedEvents }) => {
                     {highlightedEvents.map(
                         ({ id, title, tickets, description, location }) => {
                             const MAX_LENGTH = 30;
+                            const SUFIX_SYMBOL = "...";
+                            const FULL_DATE_FORMAT = "MMM do @ yyyy";
                             const dates = tickets.map(
                                 ({ date }) => new Date(date)
                             );
@@ -27,11 +28,11 @@ const HighlightedEventList = ({ highlightedEvents }) => {
                                         <h5 className="mb-1">
                                             {title.substring(0, MAX_LENGTH)}
                                             {title.length > MAX_LENGTH &&
-                                                "..."}{" "}
+                                                SUFIX_SYMBOL}{" "}
                                             <small className="highlighted-event-date">
                                                 {getNextOrFirstFormattedDate(
                                                     dates,
-                                                    "MMM do @ yyyy"
+                                                    FULL_DATE_FORMAT
                                                 )}
                                             </small>
                                         </h5>
@@ -39,7 +40,7 @@ const HighlightedEventList = ({ highlightedEvents }) => {
                                     <p className="mb-1">
                                         {description.substring(0, MAX_LENGTH)}{" "}
                                         {description.length > MAX_LENGTH &&
-                                            "..."}
+                                            SUFIX_SYMBOL}
                                     </p>
                                     <small className="float-right">
                                         {location}

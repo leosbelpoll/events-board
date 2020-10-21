@@ -8,7 +8,7 @@ import "./EventForm.scss";
 const EventDetail = ({ eventsState, createEvent }) => {
     const DATE_VALUE = getFormattedDate(new Date(), "yyyy-MM-dd");
     const TIME_VALUE = getFormattedDate(new Date(), "HH:mm");
-    const { loading, error } = eventsState;
+    const { error } = eventsState;
     const [validationError, setValidationError] = useState();
     const [tickets, setTickets] = useState([]);
     const [title, setTitle] = useState("");
@@ -19,10 +19,6 @@ const EventDetail = ({ eventsState, createEvent }) => {
     const [time, setTime] = useState(TIME_VALUE);
     const [price, setPrice] = useState("0");
     const history = useHistory();
-
-    if (loading) {
-        return <p>Loading ...</p>;
-    }
 
     const addTicket = (e) => {
         e.preventDefault();
@@ -72,11 +68,6 @@ const EventDetail = ({ eventsState, createEvent }) => {
             {validationError && (
                 <div class="alert alert-danger" role="alert">
                     {validationError}
-                </div>
-            )}
-            {error && (
-                <div class="alert alert-danger" role="alert">
-                    Ooops, un error ocurred!
                 </div>
             )}
             <div className="row">

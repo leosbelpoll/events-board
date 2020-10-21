@@ -6,7 +6,7 @@ import PageNotFound from "components/PageNotFound";
 import "./EventDetail.scss";
 
 const EventDetail = ({ eventsState, getEvent }) => {
-    const { loading, error, currentEvent } = eventsState;
+    const { error, currentEvent } = eventsState;
     const { title, location, description, tickets, eventImage } =
         currentEvent || {};
     let { id } = useParams();
@@ -14,10 +14,6 @@ const EventDetail = ({ eventsState, getEvent }) => {
     useEffect(() => {
         getEvent(id);
     }, [getEvent, id]);
-
-    if (loading) {
-        return <p>Loading ...</p>;
-    }
 
     if (error) {
         return <PageNotFound />;

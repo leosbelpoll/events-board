@@ -6,20 +6,12 @@ import "./Home.scss";
 
 const Home = ({ eventsState, getEvents, getHighlightedEvents }) => {
     const FULL_DATE_FORMAT = "MMM do, yyyy @ HH:mm";
-    const { events, highlightedEvents, loading, error } = eventsState;
+    const { events, highlightedEvents } = eventsState;
 
     useEffect(() => {
         getEvents();
         getHighlightedEvents();
     }, [getEvents, getHighlightedEvents]);
-
-    if (loading) {
-        return <p>Loading ...</p>;
-    }
-
-    if (error) {
-        return <p>Ooops, an error ocurred!</p>;
-    }
 
     return (
         <div className="row">
@@ -35,56 +27,60 @@ const Home = ({ eventsState, getEvents, getHighlightedEvents }) => {
                     </div>
                 </div>
                 <div className="row">
-                    {events
-                        ? events.map((event) => {
-                              const dates = event.tickets.map(
-                                  ({ date }) => new Date(date)
-                              );
-                              const nextDate = getNextOrFirstFormattedDate(
-                                  dates,
-                                  FULL_DATE_FORMAT
-                              );
+                    {events && events.length ? (
+                        events.map((event) => {
+                            const dates = event.tickets.map(
+                                ({ date }) => new Date(date)
+                            );
+                            const nextDate = getNextOrFirstFormattedDate(
+                                dates,
+                                FULL_DATE_FORMAT
+                            );
 
-                              return (
-                                  <div
-                                      className="col-lg-4 event-card"
-                                      key={event.id}
-                                  >
-                                      <div className="card">
-                                          <img
-                                              src={event.eventImage}
-                                              className="card-img-top"
-                                              alt={event.title}
-                                              style={{
-                                                  height: "14rem",
-                                                  objectFit: "cover",
-                                              }}
-                                          />
-                                          <div className="card-body">
-                                              <h6 className="card-date">
-                                                  {nextDate}
-                                              </h6>
-                                              <h5 className="card-title">
-                                                  {event.title}
-                                              </h5>
-                                              <Link
-                                                  to={`/events/${event.id}`}
-                                                  className="btn btn-success"
-                                              >
-                                                  View
-                                              </Link>
-                                          </div>
-                                      </div>
-                                  </div>
-                              );
-                          })
-                        : "No events to show"}
+                            return (
+                                <div
+                                    className="col-lg-4 event-card"
+                                    key={event.id}
+                                >
+                                    <div className="card">
+                                        <img
+                                            src={event.eventImage}
+                                            className="card-img-top"
+                                            alt={event.title}
+                                            style={{
+                                                height: "14rem",
+                                                objectFit: "cover",
+                                            }}
+                                        />
+                                        <div className="card-body">
+                                            <h6 className="card-date">
+                                                {nextDate}
+                                            </h6>
+                                            <h5 className="card-title">
+                                                {event.title}
+                                            </h5>
+                                            <Link
+                                                to={`/events/${event.id}`}
+                                                className="btn btn-success"
+                                            >
+                                                View
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <div className="col">
+                            <span>No events to show</span>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="col-lg-4">
                 <h2>Today's Highlight</h2>
                 <hr />
-                {highlightedEvents ? (
+                {highlightedEvents && highlightedEvents.length ? (
                     <div className="list-group">
                         {highlightedEvents.map(
                             ({ id, title, tickets, description, location }) => {
@@ -128,7 +124,9 @@ const Home = ({ eventsState, getEvents, getHighlightedEvents }) => {
                         )}
                     </div>
                 ) : (
-                    ""
+                    <div className="col">
+                        <span>No highlighted events to show</span>
+                    </div>
                 )}
             </div>
         </div>

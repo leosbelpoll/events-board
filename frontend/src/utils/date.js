@@ -13,14 +13,26 @@ export const getNextFormattedDate = (
     return nextDates && nextDates.length && format(nextDates[0], formatString);
 };
 
-export const getNextOrFirstFormattedDate = (
+export const getLastFormattedDate = (
+    dates,
+    formatString = DEFAULT_DATE_FORMAT
+) => {
+    const nextDates = dates.map((date) => new Date(date)).sort(compareAsc);
+    return (
+        nextDates &&
+        nextDates.length &&
+        format(nextDates[nextDates.length - 1], formatString)
+    );
+};
+
+export const getNextOrLastFormattedDate = (
     dates,
     formatString = DEFAULT_DATE_FORMAT
 ) => {
     let date = getNextFormattedDate(dates, formatString);
 
     if (!date) {
-        date = getFormattedDate(dates[0], formatString);
+        date = getLastFormattedDate(dates, formatString);
     }
 
     return date;

@@ -6,7 +6,11 @@ $background: rgba(#fff, 0.7);
     left: 0;
     padding: 5px;
     font-size: 0.7em;
-    background: $background;
+    background: rgba(118, 199, 3, 0.7);
+}
+
+.past-date {
+    background: rgba(250, 134, 99, 0.6);
 }
 
 .card-title {

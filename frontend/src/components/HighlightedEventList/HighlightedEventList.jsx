@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { getNextOrFirstFormattedDate } from "utils/date";
+import { getNextOrLastFormattedDate } from "utils/date";
 import "./HighlightedEventList.scss";
 
 const HighlightedEventList = ({ highlightedEvents }) => {
@@ -30,7 +30,7 @@ const HighlightedEventList = ({ highlightedEvents }) => {
                                             {title.length > MAX_LENGTH &&
                                                 SUFIX_SYMBOL}{" "}
                                             <small className="highlighted-event-date">
-                                                {getNextOrFirstFormattedDate(
+                                                {getNextOrLastFormattedDate(
                                                     dates,
                                                     FULL_DATE_FORMAT
                                                 )}

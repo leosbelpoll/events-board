@@ -33,6 +33,13 @@ const EventListItem = ({ id, title, tickets, eventImage }) => {
                     >
                         {nextDate}
                     </h6>
+                    <a
+                        className="twitter-share-button btn btn-info"
+                        href={`https://twitter.com/intent/tweet?text=I go to ${title} @ ${nextDateToAnalize}`}
+                        target="_blank"
+                    >
+                        Twit this event
+                    </a>
                     <h5 className="card-title">{title}</h5>
                     <Link to={`/events/${id}`} className="btn btn-success">
                         View

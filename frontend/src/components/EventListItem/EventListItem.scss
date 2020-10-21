@@ -21,3 +21,18 @@ $background: rgba(#fff, 0.7);
     padding: 10px;
     background: $background;
 }
+
+.twitter-share-button {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    display: none;
+}
+
+.card {
+    &:hover {
+        .twitter-share-button {
+            display: block;
+        }
+    }
+}

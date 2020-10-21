@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-import { getNextOrFirstFormattedDate } from "utils/date";
+import EventList from "components/EventList";
+import HighlightedEventList from "components/HighlightedEventList";
 import "./Home.scss";
 
 const Home = ({ eventsState, getEvents, getHighlightedEvents }) => {
-    const FULL_DATE_FORMAT = "MMM do, yyyy @ HH:mm";
     const { events, highlightedEvents } = eventsState;
 
     useEffect(() => {
@@ -27,107 +27,13 @@ const Home = ({ eventsState, getEvents, getHighlightedEvents }) => {
                     </div>
                 </div>
                 <div className="row">
-                    {events && events.length ? (
-                        events.map((event) => {
-                            const dates = event.tickets.map(
-                                ({ date }) => new Date(date)
-                            );
-                            const nextDate = getNextOrFirstFormattedDate(
-                                dates,
-                                FULL_DATE_FORMAT
-                            );
-
-                            return (
-                                <div
-                                    className="col-lg-4 event-card"
-                                    key={event.id}
-                                >
-                                    <div className="card">
-                                        <img
-                                            src={event.eventImage}
-                                            className="card-img-top"
-                                            alt={event.title}
-                                            style={{
-                                                height: "14rem",
-                                                objectFit: "cover",
-                                            }}
-                                        />
-                                        <div className="card-body">
-                                            <h6 className="card-date">
-                                                {nextDate}
-                                            </h6>
-                                            <h5 className="card-title">
-                                                {event.title}
-                                            </h5>
-                                            <Link
-                                                to={`/events/${event.id}`}
-                                                className="btn btn-success"
-                                            >
-                                                View
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            );
-                        })
-                    ) : (
-                        <div className="col">
-                            <span>No events to show</span>
-                        </div>
-                    )}
+                    <EventList events={events} />
                 </div>
             </div>
             <div className="col-lg-4">
                 <h2>Today's Highlight</h2>
                 <hr />
-                {highlightedEvents && highlightedEvents.length ? (
-                    <div className="list-group">
-                        {highlightedEvents.map(
-                            ({ id, title, tickets, description, location }) => {
-                                const MAX_LENGTH = 30;
-                                const dates = tickets.map(
-                                    ({ date }) => new Date(date)
-                                );
-
-                                return (
-                                    <Link
-                                        to={`/events/${id}`}
-                                        className="list-group-item list-group-item-action"
-                                    >
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h5 className="mb-1">
-                                                {title.substring(0, MAX_LENGTH)}
-                                                {title.length > MAX_LENGTH &&
-                                                    "..."}{" "}
-                                                <small className="highlighted-event-date">
-                                                    {getNextOrFirstFormattedDate(
-                                                        dates,
-                                                        "MMM do @ yyyy"
-                                                    )}
-                                                </small>
-                                            </h5>
-                                        </div>
-                                        <p className="mb-1">
-                                            {description.substring(
-                                                0,
-                                                MAX_LENGTH
-                                            )}{" "}
-                                            {description.length > MAX_LENGTH &&
-                                                "..."}
-                                        </p>
-                                        <small className="float-right">
-                                            {location}
-                                        </small>
-                                    </Link>
-                                );
-                            }
-                        )}
-                    </div>
-                ) : (
-                    <div className="col">
-                        <span>No highlighted events to show</span>
-                    </div>
-                )}
+                <HighlightedEventList highlightedEvents={highlightedEvents} />
             </div>
         </div>
     );

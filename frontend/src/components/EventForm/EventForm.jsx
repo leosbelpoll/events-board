@@ -5,10 +5,9 @@ import TicketsTable from "components/TicketsTable";
 import { getFormattedDate } from "utils/date";
 import "./EventForm.scss";
 
-const EventDetail = ({ eventsState, createEvent }) => {
+const EventDetail = ({ createEvent }) => {
     const DATE_VALUE = getFormattedDate(new Date(), "yyyy-MM-dd");
     const TIME_VALUE = getFormattedDate(new Date(), "HH:mm");
-    const { error } = eventsState;
     const [validationError, setValidationError] = useState();
     const [tickets, setTickets] = useState([]);
     const [title, setTitle] = useState("");
@@ -66,7 +65,7 @@ const EventDetail = ({ eventsState, createEvent }) => {
     return (
         <form onSubmit={onSubmit}>
             {validationError && (
-                <div class="alert alert-danger" role="alert">
+                <div className="alert alert-danger" role="alert">
                     {validationError}
                 </div>
             )}

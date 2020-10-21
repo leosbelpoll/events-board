@@ -24,9 +24,7 @@ const Home = ({ eventsState, getEvents, getHighlightedEvents }) => {
     };
 
     const orderedEvents = events.sort(compareDates);
-
-    console.log(events);
-    console.log(orderedEvents);
+    const orderedHighlightedEvents = highlightedEvents.sort(compareDates);
 
     useEffect(() => {
         getEvents();
@@ -53,7 +51,9 @@ const Home = ({ eventsState, getEvents, getHighlightedEvents }) => {
             <div className="col-lg-4">
                 <h2>Today's Highlight</h2>
                 <hr />
-                <HighlightedEventList highlightedEvents={highlightedEvents} />
+                <HighlightedEventList
+                    highlightedEvents={orderedHighlightedEvents}
+                />
             </div>
         </div>
     );

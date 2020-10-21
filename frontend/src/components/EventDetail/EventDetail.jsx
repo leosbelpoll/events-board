@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { getFormattedDate, getDates } from "utils/date";
+import TicketsTable from "components/TicketsTable";
 import PageNotFound from "components/PageNotFound";
 import "./EventDetail.scss";
 
@@ -23,28 +23,6 @@ const EventDetail = ({ eventsState, getEvent }) => {
         return <PageNotFound />;
     }
 
-    const getTable = () => (
-        <table className="table dates-table">
-            <thead>
-                <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Time</th>
-                    <th scope="col">Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                {tickets &&
-                    tickets.map(({ date, price }) => (
-                        <tr>
-                            <td>{getFormattedDate(date, "MMM do, yyyy")}</td>
-                            <td>{getFormattedDate(date, "HH:mm")}</td>
-                            <td>{price}</td>
-                        </tr>
-                    ))}
-            </tbody>
-        </table>
-    );
-
     return (
         <div className="row">
             {currentEvent ? (
@@ -62,7 +40,7 @@ const EventDetail = ({ eventsState, getEvent }) => {
                             alt={title}
                             className="rounded mx-auto d-block event-image"
                         />
-                        {getTable()}
+                        <TicketsTable tickets={tickets} />
                     </div>
                 </>
             ) : (

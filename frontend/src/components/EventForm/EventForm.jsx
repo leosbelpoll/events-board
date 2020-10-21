@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
+import TicketsTable from "components/TicketsTable";
 import { getFormattedDate } from "utils/date";
 import "./EventForm.scss";
 
@@ -22,41 +23,6 @@ const EventDetail = ({ eventsState, createEvent }) => {
     if (loading) {
         return <p>Loading ...</p>;
     }
-
-    const getTable = () => {
-        return (
-            <table className="table dates-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Time</th>
-                        <th scope="col">Price</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {tickets &&
-                        tickets.map(({ date, price }, index) => (
-                            <tr key={index}>
-                                <td>
-                                    {getFormattedDate(date, "MMM do, yyyy")}
-                                </td>
-                                <td>{getFormattedDate(date, "HH:mm")}</td>
-                                <td>${price}</td>
-                                <td>
-                                    <button
-                                        className="btn btn-danger"
-                                        onClick={(e) => removeTicket(e, index)}
-                                    >
-                                        Remove
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                </tbody>
-            </table>
-        );
-    };
 
     const addTicket = (e) => {
         e.preventDefault();
@@ -184,7 +150,7 @@ const EventDetail = ({ eventsState, createEvent }) => {
                             </button>
                         </div>
                     </div>
-                    {getTable()}
+                    <TicketsTable tickets={tickets} onRemove={removeTicket} />
                     <button className="btn btn-lg btn-primary float-right mt-4">
                         Create
                     </button>
